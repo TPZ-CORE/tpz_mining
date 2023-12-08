@@ -24,7 +24,7 @@ Config.tpz_leveling = true
 -----------------------------------------------------------
 
 Config.Job                  = "miner"
-Config.OnlyJob              = true -- If set to true, only the players with the Config.Job will be able to work on the mining areas.
+Config.OnlyJob              = false -- If set to true, only the players with the Config.Job will be able to work on the mining areas.
 
 Config.PickaxeItem          = "pickaxe"
 Config.DurabilityRemove     = {0, 1} -- Set to false if you don't want to remove any durability. (100% is maximum)
