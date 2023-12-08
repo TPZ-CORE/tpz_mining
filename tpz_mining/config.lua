@@ -3,6 +3,7 @@ Config = {}
 Config.DevMode   = false
 
 Config.ActionKey = 0x760A9C6F --[G]
+
 -----------------------------------------------------------
 --[[ Discord Webhooking  ]]--
 -----------------------------------------------------------
@@ -23,19 +24,19 @@ Config.tpz_leveling = true
 --[[ General ]]--
 -----------------------------------------------------------
 
-Config.Job                  = "miner"
-Config.OnlyJob              = false -- If set to true, only the players with the Config.Job will be able to work on the mining areas.
+Config.Job                          = "miner"
+Config.OnlyJob                      = false -- If set to true, only the players with the Config.Job will be able to work on the mining areas.
 
-Config.PickaxeItem          = "pickaxe"
-Config.DurabilityRemove     = {0, 1} -- Set to false if you don't want to remove any durability. (100% is maximum)
+Config.PickaxeItem                  = "pickaxe"
+Config.DurabilityRemove             = {0, 1} -- Set to false if you don't want to remove any durability. (100% is maximum)
 
-Config.MiningTimer          = 10 -- Time in seconds.
+Config.MiningTimer                  = 10 -- Time in seconds.
 
-Config.ActionDistance       = 1.2
+Config.ActionDistance               = 1.2
 
-Config.DisplayActionMarkers = true
+Config.DisplayActionMarkers         = true
 Config.DisplayActionMarkersDistance = 10.0
-Config.DisplayActionMarkersRGBA = {r = 240, g = 230, b = 140, a = 255}
+Config.DisplayActionMarkersRGBA     = {r = 240, g = 230, b = 140, a = 255}
 
 -----------------------------------------------------------
 --[[ Locations ]]--
