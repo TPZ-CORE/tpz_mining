@@ -28,7 +28,7 @@ AddEventHandler("tpz_mining:onMiningSuccessReward", function(reward)
 	end
 	
 	if Config.tpz_leveling then
-		TriggerEvent("tp_leveling:AddLevelExperience", _source, "mining", tonumber(reward.exp))
+		TriggerEvent("tpz_leveling:AddLevelExperience", _source, "mining", tonumber(reward.exp))
 	end
 
 	local canCarryItem = TPZInv.canCarryItem(_source, reward.name, quantity)
