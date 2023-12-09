@@ -65,6 +65,14 @@ function Anim(actor, dict, body, duration, flags, introtiming, exittiming)
     end)
 end
 
+function LoadModel(model)
+    local model = GetHashKey(model)
+    RequestModel(model)
+
+    while not HasModelLoaded(model) do RequestModel(model)
+        Citizen.Wait(10)
+    end
+end
 
 function OnPickaxeEquip(toolhash)
 
@@ -73,6 +81,9 @@ function OnPickaxeEquip(toolhash)
     if ClientData.PickaxeTool then
         DeleteEntity(ClientData.PickaxeTool)
     end
+
+    LoadModel(toolhash)
+    
     Wait(500)
 
     local ped = PlayerPedId()
