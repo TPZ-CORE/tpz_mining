@@ -98,7 +98,7 @@ function OnPickaxeEquip(toolhash)
 end
 
 function CanPlayerDoAction(player)
-    if IsPedOnMount(player) or IsPedInAnyVehicle(player) or IsPedDeadOrDying(player) or IsEntityInWater(player) or IsPedClimbing(player) or not IsPedOnFoot(player) then
+    if IsPedOnMount(player) or IsPedInAnyVehicle(player) or IsPedDeadOrDying(player) or IsPedClimbing(player) or not IsPedOnFoot(player) then
         return false
     end
 
