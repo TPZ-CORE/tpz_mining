@@ -215,6 +215,27 @@ Citizen.CreateThread(function()
     end
 end)
 
----------------------------------------------------------------
--- Functions
----------------------------------------------------------------
+-- The following thread is disabling control actions while player has a pickaxe attached.
+if Config.KeyControls.Disable then
+
+    Citizen.CreateThread(function()
+        while true do
+            Wait(0)
+
+            if ClientData.IsHoldingPickaxe then
+
+                for index, control in pairs (Config.KeyControls.Controls) do
+                    DisableControlAction(0, control)
+                end
+
+                if ClientData.IsBusy then
+                    DisableControlAction(0, Config.KeyControls.InventoryControl)
+                end
+
+            else
+                Wait(1000)
+            end
+        end
+    end)
+
+end
