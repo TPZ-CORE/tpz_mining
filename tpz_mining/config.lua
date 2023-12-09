@@ -38,7 +38,7 @@ Config.DisplayActionMarkers         = true
 Config.DisplayActionMarkersDistance = 10.0
 Config.DisplayActionMarkersRGBA     = {r = 240, g = 230, b = 140, a = 255}
 
-Config.KeyControls = { -- IF PLAYER HAVE THE HATCHET EQUIPED, HE CANNOT USE THE CONTROLS BELOW.
+Config.KeyControls = { -- IF PLAYER HAVE THE PICKAXE EQUIPED, HE CANNOT USE THE CONTROLS BELOW.
     Disable = true,
 
     Controls = {
@@ -52,7 +52,7 @@ Config.KeyControls = { -- IF PLAYER HAVE THE HATCHET EQUIPED, HE CANNOT USE THE 
         [8] = 0xDB096B85, -- CTRL       
     },
 
-    InventoryControl = 0xC1989F95, -- The following control is disabled only while player is chopping to prevent bugs.
+    InventoryControl = 0xC1989F95, -- The following control is disabled only while player is mining to prevent bugs.
 }
 
 -----------------------------------------------------------
