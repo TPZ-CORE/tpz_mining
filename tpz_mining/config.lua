@@ -38,6 +38,23 @@ Config.DisplayActionMarkers         = true
 Config.DisplayActionMarkersDistance = 10.0
 Config.DisplayActionMarkersRGBA     = {r = 240, g = 230, b = 140, a = 255}
 
+Config.KeyControls = { -- IF PLAYER HAVE THE HATCHET EQUIPED, HE CANNOT USE THE CONTROLS BELOW.
+    Disable = true,
+
+    Controls = {
+        [1] = 0x07CE1E61, -- MOUSE1
+        [2] = 0xF84FA74F, -- MOUSE2
+        [3] = 0xAC4BD4F1, -- TAB
+        [4] = 0xCEFD9220, -- MOUNT
+        [5] = 0x4CC0E2FE, -- B
+        [6] = 0x8CC9CD42, -- X
+        [7] = 0x26E9DC00, -- Z
+        [8] = 0xDB096B85, -- CTRL       
+    },
+
+    InventoryControl = 0xC1989F95, -- The following control is disabled only while player is chopping to prevent bugs.
+}
+
 -----------------------------------------------------------
 --[[ Locations ]]--
 -----------------------------------------------------------
