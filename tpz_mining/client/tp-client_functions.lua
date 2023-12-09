@@ -96,3 +96,11 @@ function OnPickaxeEquip(toolhash)
     ForceEntityAiAndAnimationUpdate(ClientData.PickaxeTool, 1)
     Citizen.InvokeNative(0x3A50753042B6891B, ped, "PITCH_FORKS")
 end
+
+function CanPlayerDoAction(player)
+    if IsPedOnMount(player) or IsPedInAnyVehicle(player) or IsPedDeadOrDying(player) or IsEntityInWater(player) or IsPedClimbing(player) or not IsPedOnFoot(player) then
+        return false
+    end
+
+    return true
+end
