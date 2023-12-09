@@ -121,8 +121,9 @@ Citizen.CreateThread(function()
         local coords   = GetEntityCoords(PlayerPedId())
 
         local isDead = IsEntityDead(player)
+        local canPerformAction = CanPlayerDoAction(player)
 
-        if not isDead and ClientData.IsHoldingPickaxe and not ClientData.IsBusy then
+        if not isDead and ClientData.IsHoldingPickaxe and not ClientData.IsBusy and canPerformAction then
 
             if (Config.OnlyJob and ClientData.Job == Config.Job) or (not Config.OnlyJob) then
 
