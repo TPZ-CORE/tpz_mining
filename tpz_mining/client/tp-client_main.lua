@@ -155,7 +155,7 @@ Citizen.CreateThread(function()
                             if Citizen.InvokeNative(0xC92AC953F0A982AE, PromptList) then
                                 ClientData.IsBusy = true
     
-                                SetCurrentPedWeapon(player, GetHashKey("WEAPON_UNARMED"), true, 0, false, false)
+                                SetCurrentPedWeapon(player, joaat("WEAPON_UNARMED"), true, 0, false, false)
     
                                 Citizen.Wait(500)
     
