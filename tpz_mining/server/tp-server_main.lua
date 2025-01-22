@@ -87,7 +87,7 @@ end)
 -- Callbacks
 --------------------------------------------------------------------------------------------------------
 
-exports.tpz_core:rServerAPI().addNewCallBack("tpz_mining:getRandomOreRewardData", function(source, cb, city)
+exports.tpz_core:server().addNewCallBack("tpz_mining:getRandomOreRewardData", function(source, cb, city)
 
 	local rewards  = {}
     local chance   =  math.random(1, 100)
