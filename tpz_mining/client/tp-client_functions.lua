@@ -1,6 +1,18 @@
 local Prompts     = GetRandomIntInRange(0, 0xffffff)
 local PromptList = nil
 
+--[[-------------------------------------------------------
+ Base Events
+]]---------------------------------------------------------
+
+AddEventHandler("onResourceStop", function(resourceName)
+    if resourceName ~= GetCurrentResourceName() then
+        return
+    end
+
+    Citizen.InvokeNative(0x00EDE88D4D13CF59, Prompts) -- UiPromptDelete
+end)
+
 -----------------------------------------------------------
 --[[ Blips ]]--
 -----------------------------------------------------------
