@@ -1,5 +1,4 @@
-local TPZ    = exports.tpz_core:getCoreAPI()
-local TPZInv = exports.tpz_inventory:getInventoryAPI()
+local TPZ = exports.tpz_core:getCoreAPI()
 
 local ListedPlayers = {}
 
@@ -111,6 +110,7 @@ RegisterServerEvent("tpz_mining:server:success")
 AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targetItemId)
 	local _source    = source
 	local PlayerData = GetPlayerData(_source)
+	local xPlayer    = TPZ.GetPlayer(_source)
 
 	math.randomseed(os.time())
 	
@@ -135,7 +135,7 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
 	-- Removing durability if enabled on action.
 	if Config.Durability.Enabled and targetItemId then
 		local randomValueRemove = math.random(Config.Durability.RemoveValue.min, Config.Durability.RemoveValue.max)
-		TPZInv.removeItemDurability(_source, Config.PickaxeItem, randomValueRemove, targetItemId, false)
+		xPlayer.removeItemDurability(Config.PickaxeItem, randomValueRemove, targetItemId, false)
 	end
 
 	local RewardItem = GetRandomReward(targetMiningLocation)
@@ -151,12 +151,12 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
 			LevelingAPI.AddPlayerLevelExperience(_source, 'mining', RewardItem.experience )
 		end
 
-		local canCarryItem = TPZInv.canCarryItem(_source, RewardItem.item, randomQuantity)
+		local canCarryItem = xPlayer.canCarryItem(RewardItem.item, randomQuantity)
 
 		Wait(500)
 		if canCarryItem then
 
-			TPZInv.addItem(_source, RewardItem.item, randomQuantity, nil)
+			xPlayer.addItem(RewardItem.item, randomQuantity, nil)
 
 			SendNotification(_source, string.format(Locales['SUCCESSFULLY_FOUND_REWARD'], randomQuantity, RewardItem.label), "success")
 			
