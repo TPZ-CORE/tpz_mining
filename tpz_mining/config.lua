@@ -154,11 +154,11 @@ Config.MiningZones = {
 Config.Items = {
     ['Annesburg'] = {
 
-        { item = "rock",       label = "Rocks",        chance = 100,  quantity = {min = 1,2},  experience = 2},
-        { item = "copper",     label = "Copper",       chance = 70,   quantity = {min = 1,2},  experience = 4},
-        { item = "iron",       label = "Iron",         chance = 50,   quantity = {min = 1,2},  experience = 5},
-        { item = "silver",     label = "Silver",       chance = 30,   quantity = {min = 1,2},  experience = 6},
-        { item = "goldnugget", label = "Gold Nuggets", chance = 20,   quantity = {min = 1,2},  experience = 10},
+        { item = "rock",       label = "Rocks",        chance = 100,  quantity = {min = 1, max = 2},  experience = 2},
+        { item = "copper",     label = "Copper",       chance = 70,   quantity = {min = 1, max = 2},  experience = 4},
+        { item = "iron",       label = "Iron",         chance = 50,   quantity = {min = 1, max = 2},  experience = 5},
+        { item = "silver",     label = "Silver",       chance = 30,   quantity = {min = 1, max = 2},  experience = 6},
+        { item = "goldnugget", label = "Gold Nuggets", chance = 20,   quantity = {min = 1, max = 2},  experience = 10},
     },
 
     ['BigValley'] = {
