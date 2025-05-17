@@ -108,11 +108,12 @@ end)
 
 RegisterServerEvent("tpz_mining:server:success")
 AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targetItemId)
-	local _source    = source
-	local PlayerData = GetPlayerData(_source)
-	local xPlayer    = TPZ.GetPlayer(_source)
+	local _source        = source
+	local PlayerData     = GetPlayerData(_source)
+	local xPlayer        = TPZ.GetPlayer(_source)
 
-	math.randomseed(os.time())
+	local job            = xPlayer.getJob()
+	local hasRequiredJob = HasRequiredJob(job)
 	
 	Wait( math.random(100, 250) )
 
@@ -142,7 +143,6 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
 
 	if RewardItem.Item ~= "nothing" then
 
-		math.randomseed(os.time()) -- required to refresh the random.math for better results. 
 		local randomQuantity = math.random(RewardItem.quantity.min, RewardItem.quantity.max)
 
 		if Config.tpz_leveling then
