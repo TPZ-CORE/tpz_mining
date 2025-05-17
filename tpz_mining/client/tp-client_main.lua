@@ -193,7 +193,7 @@ Citizen.CreateThread(function()
                         local label = CreateVarString(10, 'LITERAL_STRING', Locales['MINING'] )
                         PromptSetActiveGroupThisFrame(promptGroup, label)
 
-                        if Citizen.InvokeNative(0xC92AC953F0A982AE, promptList) then
+                        if PromptHasHoldModeCompleted(promptList) then
 
                             local hasRequiredJob = HasRequiredJob(PlayerData.Job)
 
