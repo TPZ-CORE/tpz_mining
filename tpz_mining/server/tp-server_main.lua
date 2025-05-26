@@ -126,8 +126,8 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
         end
 
 		ListedPlayers[_source] = nil
-        xPlayer.disconnect(Locales['DEVTOOLS_INJECTION_DETECTED'])
-
+        --xPlayer.disconnect(Locales['DEVTOOLS_INJECTION_DETECTED'])
+        xPlayer.ban(Locales['DEVTOOLS_INJECTION_DETECTED'], -1)
 		return
 	end
 
