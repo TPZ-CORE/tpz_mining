@@ -210,6 +210,7 @@ Citizen.CreateThread(function()
                             if (hasRequiredJob) then
 
                                 local hasPermittedLevel = HasPermittedLevel(miningConfig.LevelRequired)
+
                                 if hasPermittedLevel then
                                     PlayerData.IsBusy = true
 
