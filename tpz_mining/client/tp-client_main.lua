@@ -42,6 +42,19 @@ local function HasRequiredJob(currentJob)
 
 end
 
+local function HasPermittedLevel(currentLevel, requiredLevel)
+
+    if not Config.tpz_leveling then
+        return true
+    end
+
+    if requiredLevel <= currentLevel then
+        return true
+    end
+
+    return false
+end
+
 -----------------------------------------------------------
 --[[ Base Events ]]--
 -----------------------------------------------------------
