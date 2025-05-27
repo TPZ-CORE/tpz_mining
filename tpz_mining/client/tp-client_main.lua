@@ -1,3 +1,5 @@
+local TPZ = exports.tpz_core:getCoreAPI()
+
 local PlayerData = {
     IsHoldingPickaxe = false,
     ObjectEntity     = nil,
@@ -22,16 +24,9 @@ end
 --[[ Local Functions ]]--
 -----------------------------------------------------------
 
--- @GetTableLength returns the length of a table.
-local function GetTableLength(T)
-    local count = 0
-    for _ in pairs(T) do count = count + 1 end
-    return count
-end
-
 local function HasRequiredJob(currentJob)
 
-	if not Config.Jobs or Config.Jobs and GetTableLength(Config.Jobs) <= 0 then
+	if not Config.Jobs or Config.Jobs and TPZ.GetTableLength(Config.Jobs) <= 0 then
 		return true
 	end
 
@@ -87,7 +82,7 @@ end)
 AddEventHandler("tpz_core:isPlayerReady", function()
     Wait(2000)
     
-    local data = exports.tpz_core:getCoreAPI().GetPlayerClientData()
+    local data = TPZ.GetPlayerClientData()
 
     if data == nil then
         return
@@ -142,7 +137,7 @@ if Config.DevMode then
 
         Wait(2000)
 
-        local data = exports.tpz_core:getCoreAPI().GetPlayerClientData()
+        local data = TPZ.GetPlayerClientData()
 
         if data == nil then
             return
