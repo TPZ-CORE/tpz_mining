@@ -42,13 +42,15 @@ local function HasRequiredJob(currentJob)
 
 end
 
-local function HasPermittedLevel(currentLevel, requiredLevel)
+local function HasPermittedLevel(levelRequired)
 
     if not Config.tpz_leveling then
         return true
     end
 
-    if requiredLevel <= currentLevel then
+    local levelingData = exports.tpz_leveling:GetLevelTypeExperienceData("mining")
+
+    if tonumber(levelRequired) <= tonumber(levelingData.level) then
         return true
     end
 
@@ -207,31 +209,37 @@ Citizen.CreateThread(function()
 
                             if (hasRequiredJob) then
 
-                                PlayerData.IsBusy = true
+                                local hasPermittedLevel = HasPermittedLevel(miningConfig.LevelRequired)
+                                if hasPermittedLevel then
+                                    PlayerData.IsBusy = true
 
-                                SetCurrentPedWeapon(player, GetHashKey("WEAPON_UNARMED"), true, 0, false, false)
+                                    SetCurrentPedWeapon(player, GetHashKey("WEAPON_UNARMED"), true, 0, false, false)
     
-                                Citizen.Wait(500)
+                                    Citizen.Wait(500)
 
-                                local isMining = true
+                                    local isMining = true
                             
-                                Citizen.CreateThread(function() 
-                                    while isMining do 
-                                        Wait(0) 
-                                        Anim(player,'amb_work@world_human_pickaxe@wall@male_d@base', 'base', -1,0)
-                                        Wait(2000)
-                                    end
-                                end)
+                                    Citizen.CreateThread(function() 
+                                        while isMining do 
+                                            Wait(0) 
+                                            Anim(player,'amb_work@world_human_pickaxe@wall@male_d@base', 'base', -1,0)
+                                            Wait(2000)
+                                        end
+                                    end)
                         
-                                Citizen.Wait(1000 * Config.MiningTimer)
+                                    Citizen.Wait(1000 * Config.MiningTimer)
 
-                                TriggerServerEvent("tpz_mining:server:success", miningConfig.City, PlayerData.ItemId)
+                                    TriggerServerEvent("tpz_mining:server:success", miningConfig.City, PlayerData.ItemId)
                         
-                                ClearPedTasks(player)
-                                RemoveAnimDict("amb_work@world_human_pickaxe@wall@male_d@base") -- must remove the dict of animation
+                                    ClearPedTasks(player)
+                                    RemoveAnimDict("amb_work@world_human_pickaxe@wall@male_d@base") -- must remove the dict of animation
 
-                                isMining = false
-                                PlayerData.IsBusy = false
+                                    isMining = false
+                                    PlayerData.IsBusy = false
+
+                                else
+                                    SendNotification(nil, string.format(Locales['NOT_REQUIRED_LEVEL'], miningConfig.LevelRequired), "error")
+                                end
                             
                             else
                                 SendNotification(nil, Locales['NOT_REQUIRED_JOB'], "error")
