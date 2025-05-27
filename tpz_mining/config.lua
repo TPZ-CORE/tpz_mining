@@ -22,7 +22,7 @@ Config.Webhooks = {
 -----------------------------------------------------------
 
 -- Set to false if you don't use tpz_leveling resource.
-Config.tpz_leveling         = true
+Config.tpz_leveling         = false
 
 Config.Jobs                 = { "miner" }  -- set to false if you want to disable jobs based.
 
@@ -45,11 +45,12 @@ Config.DisplayActionMarkersRGBA = {r = 240, g = 230, b = 140, a = 255}
 -----------------------------------------------------------
 
 Config.MiningZones = {
+
     Annesburg = {
 
         City = "Annesburg",
 
-        LevelRequired = 1,
+        LevelRequired = 1, -- tpz_leveling (mining type)
 
         Blips = {
             Enabled = true,
@@ -77,7 +78,7 @@ Config.MiningZones = {
 
         City = "BigValley",
 
-        LevelRequired = 5,
+        LevelRequired = 5, -- tpz_leveling (mining type)
 
         Blips = {
             Enabled = true,
@@ -99,7 +100,7 @@ Config.MiningZones = {
 
         City = "Tumbleweed",
 
-        LevelRequired = 10,
+        LevelRequired = 10, -- tpz_leveling (mining type)
 
         Blips = {
             Enabled = true,
@@ -122,7 +123,7 @@ Config.MiningZones = {
 
         City = "CotorraSprings",
 
-        LevelRequired = 1,
+        LevelRequired = 1, -- tpz_leveling (mining type)
 
         Blips = {
             Enabled = true,
