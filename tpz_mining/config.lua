@@ -22,9 +22,9 @@ Config.Webhooks = {
 -----------------------------------------------------------
 
 -- Set to false if you don't use tpz_leveling resource.
-Config.tpz_leveling         = false
+Config.tpz_leveling         = true
 
-Config.Jobs                 = { "miner" }  -- set to false if you want to disable jobs based.
+Config.Jobs                 = false -- { "miner" }  -- set to false if you want to disable jobs based.
 
 Config.PickaxeItem          = "pickaxe"
 Config.ObjectModel          = 'p_pickaxe01x'
@@ -39,6 +39,8 @@ Config.ActionDistance       = 1.2
 Config.DisplayActionMarkers = true
 Config.DisplayActionMarkersDistance = 10.0
 Config.DisplayActionMarkersRGBA = {r = 240, g = 230, b = 140, a = 255}
+
+Config.tpz_skillcheck = true -- Set to false if you don't want to use tpz_skillcheck (https://github.com/TPZ-CORE/tpz_skillcheck)
 
 -----------------------------------------------------------
 --[[ Locations ]]--
@@ -151,46 +153,47 @@ Config.MiningZones = {
 -----------------------------------------------------------
 
 -- @param exp : is the experience which will it give for tpz_leveling (mining type).
+-- @param difficulties: "easy", "normal", "hard".
 
 Config.Items = {
     ['Annesburg'] = {
 
-        { item = "rock",       label = "Rocks",        chance = 100,  quantity = {min = 1, max = 2},  experience = 2},
-        { item = "copper",     label = "Copper",       chance = 70,   quantity = {min = 1, max = 2},  experience = 4},
-        { item = "iron",       label = "Iron",         chance = 50,   quantity = {min = 1, max = 2},  experience = 5},
-        { item = "silver",     label = "Silver",       chance = 30,   quantity = {min = 1, max = 2},  experience = 6},
-        { item = "goldnugget", label = "Gold Nuggets", chance = 20,   quantity = {min = 1, max = 2},  experience = 10},
+        { item = "rock",       label = "Rocks",        chance = 100,  quantity = {min = 1, max = 2},  difficulties = { "easy", "normal"}, experience = 2},
+        { item = "copper",     label = "Copper",       chance = 70,   quantity = {min = 1, max = 1},  difficulties = { "easy", "normal"}, experience = 4},
+        { item = "iron",       label = "Iron",         chance = 50,   quantity = {min = 1, max = 1},  difficulties = { "normal", "normal"}, experience = 5},
+        { item = "silver",     label = "Silver",       chance = 30,   quantity = {min = 1, max = 1},  difficulties = { "normal", "normal"}, experience = 6},
+        { item = "goldnugget", label = "Gold Nuggets", chance = 20,   quantity = {min = 1, max = 1},  difficulties = { "normal", "hard"},   experience = 10},
     },
 
     ['BigValley'] = {
-        { item = "rock",       label = "Rocks",        chance = 100,  quantity = {min = 1, max = 2},  experience = 2},
-        { item = "coal",       label = "Coal",         chance = 90,   quantity = {min = 1, max = 2},  experience = 3},
-        { item = "copper",     label = "Copper",       chance = 80,   quantity = {min = 1, max = 2},  experience = 4},
-        { item = "salt",       label = "Salt",         chance = 70,   quantity = {min = 1, max = 2},  experience = 4},
-        { item = "clay",       label = "Clay",         chance = 60,   quantity = {min = 1, max = 2},  experience = 5},
+        { item = "rock",       label = "Rocks",        chance = 100,  quantity = {min = 1, max = 2},  difficulties = { "easy", "normal"}, experience = 2},
+        { item = "coal",       label = "Coal",         chance = 90,   quantity = {min = 1, max = 2},  difficulties = { "easy", "normal"}, experience = 3},
+        { item = "copper",     label = "Copper",       chance = 80,   quantity = {min = 1, max = 1},  difficulties = { "easy", "normal"}, experience = 4},
+        { item = "salt",       label = "Salt",         chance = 70,   quantity = {min = 1, max = 2},  difficulties = { "easy", "normal"}, experience = 4},
+        { item = "clay",       label = "Clay",         chance = 60,   quantity = {min = 1, max = 2},  difficulties = { "easy", "normal"}, experience = 5},
 
-        { item = "iron",       label = "Iron",         chance = 50,   quantity = {min = 1, max = 2},  experience = 5},
-        { item = "silver",     label = "Silver",       chance = 30,   quantity = {min = 1, max = 2},  experience = 6},
-        { item = "goldnugget", label = "Gold Nuggets", chance = 20,   quantity = {min = 1, max = 2},  experience = 10},
-        { item = "platinum",   label = "Platinum",     chance = 10,   quantity = {min = 1, max = 1},  experience = 20},
+        { item = "iron",       label = "Iron",         chance = 50,   quantity = {min = 1, max = 1},  difficulties = { "normal", "normal"}, experience = 5},
+        { item = "silver",     label = "Silver",       chance = 30,   quantity = {min = 1, max = 1},  difficulties = { "normal", "normal"}, experience = 6},
+        { item = "goldnugget", label = "Gold Nuggets", chance = 20,   quantity = {min = 1, max = 1},  difficulties = { "normal", "hard"},   experience = 10},
+        { item = "platinum",   label = "Platinum",     chance = 10,   quantity = {min = 1, max = 1},  difficulties = { "hard", "hard"},   experience = 20},
     },
 
     ['Tumbleweed'] = {
 
-        { item = "rock",       label = "Rocks",        chance = 100,  quantity = {min = 1, max = 2},  experience = 2},
-        { item = "copper",     label = "Copper",       chance = 80,   quantity = {min = 1, max = 1},  experience = 4},
+        { item = "rock",       label = "Rocks",        chance = 100,  quantity = {min = 1, max = 2},  difficulties = { "easy", "normal"}, experience = 2},
+        { item = "copper",     label = "Copper",       chance = 80,   quantity = {min = 1, max = 1},  difficulties = { "easy", "normal"}, experience = 4},
 
-        { item = "coal",       label = "Coal",         chance = 70,   quantity = {min = 1, max = 2},  experience = 3},
-        { item = "salt",       label = "Salt",         chance = 60,   quantity = {min = 1, max = 2},  experience = 4},
+        { item = "coal",       label = "Coal",         chance = 70,   quantity = {min = 1, max = 2},  difficulties = { "easy", "normal"}, experience = 3},
+        { item = "salt",       label = "Salt",         chance = 60,   quantity = {min = 1, max = 2},  difficulties = { "easy", "normal"}, experience = 4},
         
-        { item = "iron",       label = "Iron",         chance = 50,   quantity = {min = 1, max = 2},  experience = 5},
-        { item = "silver",     label = "Silver",       chance = 30,   quantity = {min = 1, max = 2},  experience = 6},
-        { item = "goldnugget", label = "Gold Nuggets", chance = 20,   quantity = {min = 1, max = 2},  experience = 10},
-        { item = "diamond",    label = "Diamond",      chance = 5,    quantity = {min = 1, max = 1},  experience = 25},
+        { item = "iron",       label = "Iron",         chance = 50,   quantity = {min = 1, max = 1},  difficulties = { "normal", "normal"}, experience = 5},
+        { item = "silver",     label = "Silver",       chance = 30,   quantity = {min = 1, max = 1},  difficulties = { "normal", "normal"}, experience = 6},
+        { item = "goldnugget", label = "Gold Nuggets", chance = 20,   quantity = {min = 1, max = 1},  difficulties = { "normal", "hard"},   experience = 10},
+        { item = "diamond",    label = "Diamond",      chance = 5,    quantity = {min = 1, max = 1},  difficulties = { "hard", "hard"},   experience = 25},
     },
 
     ['CotorraSprings'] = {
-        { item = "sulfur",     label = "Sulfur",       chance = 50,   quantity = {min = 1, max = 1},  experience = 5},
+        { item = "sulfur",     label = "Sulfur",       chance = 50,   quantity = {min = 1, max = 1},  difficulties = { "normal", "normal"}, experience = 5},
     },
 
 }

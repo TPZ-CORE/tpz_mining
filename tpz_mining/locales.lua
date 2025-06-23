@@ -8,6 +8,7 @@ Locales = {
 
     ['NO_DURABILITY']                         = "~e~The pickaxe you have been using, unfortunately seems to be useless.",
     ['SUCCESSFULLY_FOUND_REWARD']             = "You have found X%s %s",
+    ['FOUND_NOTHING']                         = "~e~You haven't found anything.",
 
     ['NOT_REQUIRED_JOB']                      = "~e~You don't have the required job.",
     ["NOT_REQUIRED_LEVEL"]                    = "~e~You don't have the required level (%s).",
