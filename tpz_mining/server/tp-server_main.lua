@@ -26,7 +26,6 @@ local function GetRandomReward(inputLocation)
 		
 		for k,v in pairs(Config.Items[inputLocation]) do 
 		
-			math.randomseed(os.time()) -- required to refresh the random.math for better results. 
 			local chance = math.random(1, 100)
 	
 			if v.chance >= chance then
@@ -39,7 +38,6 @@ local function GetRandomReward(inputLocation)
 	end
 
 	if rewardAdded then
-		math.randomseed(os.time()) -- required to refresh the random.math for better results. 
 
 		local chance = math.random(1, 100)
 		local index, value = NearestValue(rewardList, chance)
