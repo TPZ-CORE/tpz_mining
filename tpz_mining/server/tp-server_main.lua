@@ -6,13 +6,6 @@ local ListedPlayers = {}
 --[[ Local Functions ]]--
 -----------------------------------------------------------
 
--- @GetTableLength returns the length of a table.
-local function GetTableLength(T)
-    local count = 0
-    for _ in pairs(T) do count = count + 1 end
-    return count
-end
-
 local function NearestValue(table, number)
     local smallestSoFar, smallestIndex
     for i, y in ipairs(table) do
@@ -29,7 +22,7 @@ local function GetRandomReward(inputLocation)
 	local rewardList  = {}
 	local rewardAdded = false
 
-	if GetTableLength(Config.Items[inputLocation]) > 0 then
+	if TPZ.GetTableLength(Config.Items[inputLocation]) > 0 then
 		
 		for k,v in pairs(Config.Items[inputLocation]) do 
 		
@@ -74,7 +67,7 @@ end
 
 local function HasRequiredJob(currentJob)
 
-	if not Config.Jobs or Config.Jobs and GetTableLength(Config.Jobs) <= 0 then
+	if not Config.Jobs or Config.Jobs and TPZ.GetTableLength(Config.Jobs) <= 0 then
 		return true
 	end
 
