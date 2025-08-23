@@ -112,6 +112,9 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
 
         if Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Enabled then
             local _w, _c      = Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Url, Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Color
+
+            if string.find(_w, "GetWebhookUrl") then local input = str:match("%((.-)%)") _w = TPZ.GetWebhookUrl(input) end
+
             local description = 'The specified user attempted to use devtools / injection or netbug cheat on mining reward.'
             TPZ.SendToDiscordWithPlayerParameters(_w, Locales['DEVTOOLS_INJECTION_DETECTED_TITLE_LOG'], _source, PlayerData.steamName, PlayerData.username, PlayerData.identifier, PlayerData.charIdentifier, description, _c)
         end
