@@ -172,156 +172,149 @@ Citizen.CreateThread(function()
         local player   = PlayerPedId()
         local coords   = GetEntityCoords(PlayerPedId())
 
-        local isDead = IsEntityDead(player)
+        local isPlayerDead = IsEntityDead(player)
 
-        if isDead or not PlayerData.IsHoldingPickaxe or PlayerData.IsBusy then
-            goto END
-        end
-        
-        for index, miningConfig in pairs(Config.MiningZones) do
+        if PlayerData.IsHoldingPickaxe and not PlayerData.IsBusy and not isPlayerDead then
 
-            local coordsDist = vector3(coords.x, coords.y, coords.z)
+            for index, miningConfig in pairs(Config.MiningZones) do
 
-            for k, v in pairs(miningConfig.ActionCoords) do
-
-                local actionCoords = vector3(v.x, v.y, v.z)
-                local distance = #(coordsDist - actionCoords)
-
-                if Config.DisplayActionMarkers then
-                    
-                    if distance <= Config.DisplayActionMarkersDistance then
-                        sleep = 0
-        
-                        local rgba = Config.DisplayActionMarkersRGBA
-                        Citizen.InvokeNative(0x2A32FAA57B937173, 0x94FDAE17, v.x, v.y, v.z - 1.2, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 1.0, 1.0, 0.7, rgba.r, rgba.g, rgba.b, rgba.a, false, true, 2, false, false, false, false)
-                       
-                        if distance > 1.0 then 
-                            goto END
+                local coordsDist = vector3(coords.x, coords.y, coords.z)
+    
+                for k, v in pairs(miningConfig.ActionCoords) do
+    
+                    local actionCoords = vector3(v.x, v.y, v.z)
+                    local distance = #(coordsDist - actionCoords)
+    
+                    if Config.DisplayActionMarkers then
+                        
+                        if distance <= Config.DisplayActionMarkersDistance then
+                            sleep = 0
+            
+                            local rgba = Config.DisplayActionMarkersRGBA
+                            Citizen.InvokeNative(0x2A32FAA57B937173, 0x94FDAE17, v.x, v.y, v.z - 1.2, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 1.0, 1.0, 0.7, rgba.r, rgba.g, rgba.b, rgba.a, false, true, 2, false, false, false, false)
+    
                         end
-
                     end
-                end
-
-                if distance <= 1.0 then
-
-                    sleep = 0
-
-                    local promptGroup, promptList = GetPromptData()
-
-                    local label = CreateVarString(10, 'LITERAL_STRING', Locales['MINING'] )
-                    PromptSetActiveGroupThisFrame(promptGroup, label)
-
-                    if PromptHasHoldModeCompleted(promptList) then
-
-                        local hasRequiredJob = HasRequiredJob(PlayerData.Job)
-
-                        if (hasRequiredJob) then
-
-                            local hasPermittedLevel = HasPermittedLevel(miningConfig.LevelRequired)
-
-                            if hasPermittedLevel then
-                                
-                                PlayerData.IsBusy = true
-
-                                SetCurrentPedWeapon(player, GetHashKey("WEAPON_UNARMED"), true, 0, false, false)
-
-                                Citizen.Wait(500)
-
-                                local isMining = true
+    
+                    if distance <= 1.0 then
+    
+                        sleep = 0
+    
+                        local promptGroup, promptList = GetPromptData()
+    
+                        local label = CreateVarString(10, 'LITERAL_STRING', Locales['MINING'] )
+                        PromptSetActiveGroupThisFrame(promptGroup, label)
+    
+                        if PromptHasHoldModeCompleted(promptList) then
+    
+                            local hasRequiredJob = HasRequiredJob(PlayerData.Job)
+    
+                            if (hasRequiredJob) then
+    
+                                local hasPermittedLevel = HasPermittedLevel(miningConfig.LevelRequired)
+    
+                                if hasPermittedLevel then
+                                    
+                                    PlayerData.IsBusy = true
+    
+                                    SetCurrentPedWeapon(player, GetHashKey("WEAPON_UNARMED"), true, 0, false, false)
+    
+                                    Citizen.Wait(500)
+    
+                                    local isMining = true
+                            
+                                    Citizen.CreateThread(function() 
+                                        while isMining do 
+                                            Wait(0) 
+                                            Anim(player,'amb_work@world_human_pickaxe@wall@male_d@base', 'base', -1,0)
+                                            Wait(2000)
+                                        end
+                                    end)
+    
+                                    if not Config.tpz_skillcheck then
                         
-                                Citizen.CreateThread(function() 
-                                    while isMining do 
-                                        Wait(0) 
-                                        Anim(player,'amb_work@world_human_pickaxe@wall@male_d@base', 'base', -1,0)
-                                        Wait(2000)
-                                    end
-                                end)
-
-                                if not Config.tpz_skillcheck then
-                    
-                                    Citizen.Wait(1000 * Config.MiningTimer)
-
-                                    TriggerServerEvent("tpz_mining:server:success", miningConfig.City, PlayerData.ItemId)
-                        
-                                    ClearPedTasks(player)
-                                    RemoveAnimDict("amb_work@world_human_pickaxe@wall@male_d@base") -- must remove the dict of animation
-
-                                    isMining = false
-                                    PlayerData.IsBusy = false
-
-                                    goto END
-
-                                else
-
-                                    TriggerEvent("tpz_core:ExecuteServerCallBack", "tpz_mining:callbacks:getFoundRewardData", function(data)
-
-                                        local difficulties = data.difficulties
-                                        local random1, random2 = data.difficulties.first, data.difficulties.second
-
-                                        local await, success = true, false
-
-                                        for index, difficulty in pairs (data.difficulties) do
-
-                                            if exports["tpz_skillcheck"]:skillCheck(difficulty) then
-
-                                                if next(data.difficulties, index) == nil then
-                                                    success = true
-                                                    await = false
-                                                end
-
-                                            else 
-                                                success = false
-                                                await = false
-                                                break
-                                            end
-
-                                        end
-
-                                        while await do
-                                            Wait(150)
-                                        end
-
-                                        if success then
-
-                                            if data.item ~= 'n/a' then
-                                                TriggerServerEvent("tpz_mining:server:success", miningConfig.City, PlayerData.ItemId)
-                                            else 
-                                                SendNotification(nil, Locales['FOUND_NOTHING'], "success")
-                                            end
-
-                                        else
-                                            SendNotification(nil, Locales['FOUND_NOTHING'], "error")
-                                        end
-                                        
+                                        Citizen.Wait(1000 * Config.MiningTimer)
+    
+                                        TriggerServerEvent("tpz_mining:server:success", miningConfig.City, PlayerData.ItemId)
+                            
                                         ClearPedTasks(player)
                                         RemoveAnimDict("amb_work@world_human_pickaxe@wall@male_d@base") -- must remove the dict of animation
     
                                         isMining = false
                                         PlayerData.IsBusy = false
 
-                                        goto END
-
-                                    end, miningConfig.City)
-
+    
+                                    else
+    
+                                        TriggerEvent("tpz_core:ExecuteServerCallBack", "tpz_mining:callbacks:getFoundRewardData", function(data)
+    
+                                            local difficulties = data.difficulties
+                                            local random1, random2 = data.difficulties.first, data.difficulties.second
+    
+                                            local await, success = true, false
+    
+                                            for index, difficulty in pairs (data.difficulties) do
+    
+                                                if exports["tpz_skillcheck"]:skillCheck(difficulty) then
+    
+                                                    if next(data.difficulties, index) == nil then
+                                                        success = true
+                                                        await = false
+                                                    end
+    
+                                                else 
+                                                    success = false
+                                                    await = false
+                                                    break
+                                                end
+    
+                                            end
+    
+                                            while await do
+                                                Wait(150)
+                                            end
+    
+                                            if success then
+    
+                                                if data.item ~= 'n/a' then
+                                                    TriggerServerEvent("tpz_mining:server:success", miningConfig.City, PlayerData.ItemId)
+                                                else 
+                                                    SendNotification(nil, Locales['FOUND_NOTHING'], "success")
+                                                end
+    
+                                            else
+                                                SendNotification(nil, Locales['FOUND_NOTHING'], "error")
+                                            end
+                                            
+                                            ClearPedTasks(player)
+                                            RemoveAnimDict("amb_work@world_human_pickaxe@wall@male_d@base") -- must remove the dict of animation
+        
+                                            isMining = false
+                                            PlayerData.IsBusy = false
+    
+            
+                                        end, miningConfig.City)
+    
+                                    end
+    
+                                else
+                                    SendNotification(nil, string.format(Locales['NOT_REQUIRED_LEVEL'], miningConfig.LevelRequired), "error")
                                 end
-
+                            
                             else
-                                SendNotification(nil, string.format(Locales['NOT_REQUIRED_LEVEL'], miningConfig.LevelRequired), "error")
+                                SendNotification(nil, Locales['NOT_REQUIRED_JOB'], "error")
                             end
-                        
-                        else
-                            SendNotification(nil, Locales['NOT_REQUIRED_JOB'], "error")
+    
                         end
-
+    
                     end
-
+    
                 end
 
             end
 
         end
 
-        ::END::
         Wait(sleep)
 
     end
@@ -364,4 +357,3 @@ AddEventHandler('tpz_mining:client:start_thread', function()
     end
 
 end)
-
