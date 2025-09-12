@@ -167,7 +167,7 @@ Citizen.CreateThread(function()
     RegisterPromptAction()
 
     while true do
-        Citizen.Wait(0)
+
         local sleep    = 1000
         local player   = PlayerPedId()
         local coords   = GetEntityCoords(PlayerPedId())
@@ -364,3 +364,4 @@ AddEventHandler('tpz_mining:client:start_thread', function()
     end
 
 end)
+
