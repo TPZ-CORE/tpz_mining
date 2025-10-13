@@ -28,7 +28,7 @@ local function GetRandomReward(inputLocation)
 		
 			local chance = math.random(1, 100)
 	
-			if v.chance >= chance then
+			if chance <= v.chance then
 				table.insert(rewardList, v)
 				rewardAdded = true
 			end
@@ -84,6 +84,15 @@ end
 -----------------------------------------------------------
 --[[ Base Events  ]]--
 -----------------------------------------------------------
+
+AddEventHandler('onResourceStart', function(resourceName)
+	if (GetCurrentResourceName() ~= resourceName) then
+	  return
+	end
+	
+	math.randomseed(os.time())
+  
+end)
  
 AddEventHandler('onResourceStop', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then
@@ -166,3 +175,4 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
 	ListedPlayers[_source] = nil
 
 end)
+
