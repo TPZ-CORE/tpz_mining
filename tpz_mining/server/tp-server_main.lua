@@ -112,6 +112,10 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
 	local PlayerData     = GetPlayerData(_source)
 	local xPlayer        = TPZ.GetPlayer(_source)
 
+    if xPlayer.hasLostConnection() then 
+        return 
+    end
+
 	local job            = xPlayer.getJob()
 	local hasRequiredJob = HasRequiredJob(job)
 	
@@ -173,5 +177,6 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
 	ListedPlayers[_source] = nil
 
 end)
+
 
 
