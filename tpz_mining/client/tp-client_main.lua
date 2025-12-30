@@ -68,7 +68,7 @@ AddEventHandler('onResourceStop', function(resourceName)
 
     if PlayerData.IsHoldingPickaxe then
 
-        ClearPedTasks(PlayerPedId())
+        ClearPedTasksImmediately(PlayerPedId())
 
         Citizen.InvokeNative(0xED00D72F81CF7278, PlayerData.ObjectEntity, 1, 1) -- DetachCarriableEntity
 
@@ -131,7 +131,7 @@ AddEventHandler("tpz_mining:client:onPickaxeItemUse", function(itemId)
         TriggerEvent('tpz_mining:client:start_thread')
     else
 
-        ClearPedTasks(playerPed)
+        ClearPedTasksImmediately(playerPed)
         Citizen.InvokeNative(0xED00D72F81CF7278, PlayerData.ObjectEntity, 1, 1)
         DeleteObject(PlayerData.ObjectEntity)
         Citizen.InvokeNative(0x58F7DB5BD8FA2288, playerPed) -- Cancel Walk Style
@@ -357,3 +357,4 @@ AddEventHandler('tpz_mining:client:start_thread', function()
     end
 
 end)
+
