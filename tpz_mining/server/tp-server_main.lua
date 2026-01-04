@@ -124,7 +124,7 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
 	if (targetMiningLocation == nil) or (targetMiningLocation and Config.Items[targetMiningLocation] == nil) or (not hasRequiredJob) or (ListedPlayers[_source]) then
 
         if Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Enabled then
-            local _w, _c      = Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Url, Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Color
+            local _w, _c      = TPZ.GetWebhookUrl('tpz_mining', 'DEVTOOLS_INJECTION_CHEAT'), Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Color
 				
             local description = 'The specified user attempted to use devtools / injection or netbug cheat on mining reward.'
             TPZ.SendToDiscordWithPlayerParameters(_w, Locales['DEVTOOLS_INJECTION_DETECTED_TITLE_LOG'], _source, PlayerData.steamName, PlayerData.username, PlayerData.identifier, PlayerData.charIdentifier, description, _c)
@@ -177,6 +177,7 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
 	ListedPlayers[_source] = nil
 
 end)
+
 
 
 
