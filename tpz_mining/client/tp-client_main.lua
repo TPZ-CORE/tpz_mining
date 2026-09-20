@@ -320,12 +320,14 @@ Citizen.CreateThread(function()
     end
 end)
 
-
 -- The following thread is disabling control actions while player has a hatchet attached.
 AddEventHandler('tpz_mining:client:start_thread', function()
     
     while PlayerData.IsHoldingPickaxe do
         Wait(0)
+        
+        local player       = PlayerPedId() -- 1.0.2
+        local isPlayerDead = IsEntityDead(player)-- 1.0.2
 
         DisableControlAction(0, 0xCC1075A7, true) -- MWUP
         DisableControlAction(0, 0xDB096B85, true) -- MWDOWN
@@ -343,7 +345,7 @@ AddEventHandler('tpz_mining:client:start_thread', function()
             TriggerEvent('tpz_inventory:closePlayerInventory')
         end
 
-        if PlayerData.IsHoldingPickaxe and isDead then
+        if PlayerData.IsHoldingPickaxe and isPlayerDead then -- 1.0.2
 
             ClearPedTasks(player)
             Citizen.InvokeNative(0xED00D72F81CF7278, PlayerData.ObjectEntity, 1, 1)
@@ -357,4 +359,3 @@ AddEventHandler('tpz_mining:client:start_thread', function()
     end
 
 end)
-
