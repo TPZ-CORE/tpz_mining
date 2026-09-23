@@ -116,6 +116,24 @@ end)
 --[[ Events ]]--
 -----------------------------------------------------------
 
+-- Used on server for preventing players to do actions when pickaxe does not have durability
+RegisterNetEvent("tpz_mining:client:onPickaxeUnEquip") -- 1.0.3
+AddEventHandler("tpz_mining:client:onPickaxeUnEquip", function()
+
+    local playerPed = PlayerPedId()
+
+    if PlayerData.IsHoldingPickaxe then
+
+        ClearPedTasks(playerPed)
+        Citizen.InvokeNative(0xED00D72F81CF7278, PlayerData.ObjectEntity, 1, 1)
+        DeleteObject(PlayerData.ObjectEntity)
+        Citizen.InvokeNative(0x58F7DB5BD8FA2288, playerPed) -- Cancel Walk Style
+
+        PlayerData.IsHoldingPickaxe = false
+    end
+
+end)
+
 -- When following event is triggered, if the player is not holding any pickaxe, we attach it, otherwise we detach the pickaxe.
 RegisterNetEvent("tpz_mining:client:onPickaxeItemUse")
 AddEventHandler("tpz_mining:client:onPickaxeItemUse", function(itemId)
