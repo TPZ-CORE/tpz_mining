@@ -115,7 +115,18 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
     if xPlayer.hasLostConnection() then 
         return 
     end
+		
+	if Config.Durability.Enabled and targetItemId then -- 1.0.3
 
+		local itemDurability = TPZInv.getItemDurability(_source, Config.PickaxeItem, targetItemId)
+
+		if itemDurability <= 0 or itemDurability == nil then 
+			TriggerClientEvent("tpz_mining:client:onPickaxeUnEquip", _source)
+			return 
+		end
+
+	end
+		
 	local job            = xPlayer.getJob()
 	local hasRequiredJob = HasRequiredJob(job)
 	
@@ -171,6 +182,17 @@ AddEventHandler("tpz_mining:server:success", function(targetMiningLocation, targ
 
 	else
 		SendNotification(_source, Locales['FOUND_NOTHING'], "error")
+	end
+		
+	if Config.Durability.Enabled and targetItemId then -- 1.0.3
+
+		local itemDurability = TPZInv.getItemDurability(_source, Config.PickaxeItem, targetItemId)
+
+		if itemDurability <= 0 or itemDurability == nil then 
+			TriggerClientEvent("tpz_mining:client:onPickaxeUnEquip", _source)
+			return 
+		end
+
 	end
 
 	Wait(3000)
